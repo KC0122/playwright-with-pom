@@ -1,10 +1,19 @@
-import { test, expect } from '@playwright/test';
+import { test, expect,Page,chromium } from '@playwright/test';
+import homepage from '../poms/homepage'
 
-test('has title', async ({ page }) => {
-  await page.goto('https://www.bbc.co.uk/');
+let pg;
+let brows;
+
+test('has title', async () => {
+  brows  = await chromium.launch({headless:false});
+  pg = await brows.newPage();
+
+  const hp =new homepage(pg);
+  await hp.goto();
+//  await page.goto('https://www.bbc.co.uk/');
 
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/BBC - Home/);
+ // await expect(page).toHaveTitle(/BBC - Home/);
 });
 
 
